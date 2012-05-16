@@ -5,8 +5,8 @@ if ( typeof define !== "function" ) {
 define( function ( require ) {
 
   var Service = require( "base/service" );
-  require( "extension-lib/CubicVR" );
-  var Target = require( "services/target" );
+  require( "CubicVR" );
+  var Target = require( "src/services/target" );
 
   var Renderer = function( scheduler, options ) {
     options = options || {};

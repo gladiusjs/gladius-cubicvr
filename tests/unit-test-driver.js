@@ -1,12 +1,10 @@
 QUnit.config.autostart = false;
 
 require.config({
-  baseUrl: "../src",
+  baseUrl: "../lib",
   paths: {
-    "lib": "../lib",
-    "base": "../lib/base",
-    "common": "../lib/common",
-    "test": "../tests"
+    "src": "../src",
+    "tests": "../tests"
   }
 });
 

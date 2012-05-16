@@ -3,7 +3,7 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "services/renderer" ],
+  [ "src/services/renderer" ],
   function( Renderer ) {
     return function() {
 

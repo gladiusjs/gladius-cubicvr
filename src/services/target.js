@@ -5,7 +5,7 @@ if ( typeof define !== "function" ) {
 define( function ( require ) {
 
   var guid = require( "common/guid" );
-  require( "extension-lib/CubicVR" );
+  require( "CubicVR" );
 
   var Target = function(element){
     this.element = element;

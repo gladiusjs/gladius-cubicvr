@@ -2,19 +2,19 @@
 <html>
   <head>
     <title>CubicVR Extension Unit Tests</title>
-	<link rel="stylesheet" href="../../../../tools/qunit/qunit.css" type="text/css" media="screen">
-	<script src="../../../../tools/qunit/qunit.js"></script>
+	<link rel="stylesheet" href="../tools/qunit/qunit.css" type="text/css" media="screen">
+	<script src="../tools/qunit/qunit.js"></script>
 	<!-- sinon must be imported before require, otherwise
 	     it will search for missing libraries -->    
-    <script src="../../../../tools/sinon.js"></script>
-    <script src="../../../../tools/sinon-qunit.js"></script>
+    <script src="../tools/sinon.js"></script>
+    <script src="../tools/sinon-qunit.js"></script>
     <!-- some of our test use setTimeout, so we can't use sinon's fake
          timers or the tests don't finish -->
     <script>
       sinon.config.useFakeTimers=false;
     </script>
     
-    <script src="../../../../lib/require.js"></script>
+    <script src="../lib/require.js"></script>
     <script src="unit-test-driver.js"></script>
 
     <style>

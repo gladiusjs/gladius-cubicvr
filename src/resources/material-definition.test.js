@@ -3,7 +3,7 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "resources/material-definition" ],
+  [ "src/resources/material-definition" ],
   function( MaterialDefinition ) {
     return function() {
 

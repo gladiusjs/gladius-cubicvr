@@ -3,7 +3,7 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "services/target" ],
+  [ "src/services/target" ],
   function( Target ) {
     return function() {
 

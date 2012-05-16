@@ -3,7 +3,7 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "components/model" ],
+  [ "src/components/model" ],
   function( Model ) {
     return function() {
 

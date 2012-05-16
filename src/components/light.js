@@ -3,7 +3,7 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "resources/light-definition" ],
+  [ "src/resources/light-definition" ],
   function ( LightDefinition) {
 
     var Light = function(service, lightDefinition){

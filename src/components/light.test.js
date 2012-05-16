@@ -3,7 +3,9 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "components/light", "resources/light-definition", "services/target" ],
+  [ "src/components/light", 
+    "src/resources/light-definition", 
+    "src/services/target" ],
   function( Light, LightDefinition, Target ) {
     return function() {
 

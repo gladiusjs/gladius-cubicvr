@@ -10,13 +10,13 @@ define( function ( require ) {
       
       services: {
         "renderer": {
-          service: require( "services/renderer" ),
+          service: require( "src/services/renderer" ),
           components: {
             // "Camera": require( "components/camera" ),
-            "Light": require( "components/light" )
+            "Light": require( "src/components/light" )
           },
           resources: {
-            "Mesh": require( "resources/mesh" ),
+            "Mesh": require( "src/resources/mesh" ),
             // "MaterialDefinition": require( "resources/material-definition" )
           }
         }
@@ -27,7 +27,7 @@ define( function ( require ) {
       },
       
       resources: {
-        "LightDefinition": require( "resources/light-definition" )
+        "LightDefinition": require( "src/resources/light-definition" )
       }
       
   });

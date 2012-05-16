@@ -6,12 +6,12 @@ define( function( require ) {
 
   return [
 
-          "components/camera.test",
-          "components/light.test",
-          "components/model.test",
-          "resources/light-definition.test",
-          "services/renderer.test",
-          "services/target.test"
+          "src/components/camera.test",
+          "src/components/light.test",
+          "src/components/model.test",
+          "src/resources/light-definition.test",
+          "src/services/renderer.test",
+          "src/services/target.test"
 
           ];
 

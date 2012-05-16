@@ -3,7 +3,7 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "components/camera" ],
+  [ "src/components/camera" ],
   function( Camera ) {
     return function() {
 
