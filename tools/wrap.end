@@ -1,0 +1,7 @@
+
+  var Extension = require( "gladius-cubicvr" );
+
+  return Extension;
+  
+}));
+
