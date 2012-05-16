@@ -31,7 +31,7 @@ define( function ( require ) {
         lightDefinition = new LightDefinition();
       }
 
-      this._cubicVRLight = new service.target.context.Light(lightDefinition);
+      this._cubicvrLight = new service.target.context.Light(lightDefinition);
 
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
         this[properties[propertyIndex]] = lightDefinition[properties[propertyIndex]];
@@ -43,11 +43,11 @@ define( function ( require ) {
 
     function onUpdate(event){
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
-        this._cubicVRLight[properties[propertyIndex]] = this[properties[propertyIndex]];
+        this._cubicvrLight[properties[propertyIndex]] = this[properties[propertyIndex]];
       }
       //This should return the absolute light position
-      this._cubicVRLight.position = math.matrix4.multiplyVector3(this.owner.findComponent( "Transform" ).absolute(), [ 0, 0, 0]);
-      //this._cubicVRLight.rotation = this.owner.findComponent( "Rotation" ).absolute();
+      this._cubicvrLight.position = math.matrix4.multiplyVector3(this.owner.findComponent( "Transform" ).absolute(), [ 0, 0, 0]);
+      //this._cubicvrLight.rotation = this.owner.findComponent( "Rotation" ).absolute();
     }
 
     function onEntitySpaceChanged( event ) {

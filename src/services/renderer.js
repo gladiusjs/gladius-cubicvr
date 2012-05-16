@@ -49,8 +49,8 @@ define( function ( require ) {
       // Handle lights for the current space
       var cvrLights = [];
       for( i = 0, l = lightEntities.length; i < l; ++ i ) {
-        var lightComponent = lightEntities[i].find( "Light" );
-        lightComponent.prepareForRender();
+        var light = lightEntities[i].find( "Light" );
+        light.prepareForRender();
         cvrLights.push( lightComponent._cvr.light );
       }
 
