@@ -106,7 +106,7 @@ define(
       test("update handler", function() {
         expect(1);
         var light = new Light(this.service);
-        ok(light.hasOwnProperty("onUpdate"), "light has update handler");
+        ok( "onUpdate" in light, "light has update handler");
       });
 
       test("cubicvr light exists", function(){

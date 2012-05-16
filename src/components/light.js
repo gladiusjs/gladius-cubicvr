@@ -2,12 +2,12 @@ if ( typeof define !== "function" ) {
   var define = require( "amdefine" )( module );
 }
 
-define(
-  [ "src/resources/light-definition",
-    "lib/_math",
-    "base/component",
-    "common/extend" ],
-  function ( LightDefinition, math, Component, extend ) {
+define( function ( require ) {
+
+    var LightDefinition = require( "src/resources/light-definition" );
+    var math = require( "_math" );
+    var Component = require( "base/component" );
+    var extend = require( "common/extend" );
 
     //Assign all of these values to the cubicVRLight
     var properties = [
