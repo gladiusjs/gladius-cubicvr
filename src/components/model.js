@@ -14,11 +14,26 @@ define( function() {
   Model.prototype.constructor = Model;
 
   function onUpdate( event ) {
-    
+
+  }
+
+  function onEntitySpaceChanged( event ) {
+
+  }
+
+  function onComponentOwnerChanged( event ) {
+
+  }
+
+  function onEntityActivationChanged( event ) {
+
   }
 
   var prototype = {
-    onUpdate: onUpdate
+    onUpdate: onUpdate,
+    onEntitySpaceChanged: onEntitySpaceChanged,
+    onComponentOwnerChanged: onComponentOwnerChanged,
+    onEntityActivationChanged: onEntityActivationChanged
   };
   extend( Model.prototype, prototype );
 
