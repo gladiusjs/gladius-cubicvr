@@ -19,11 +19,11 @@ define(
         teardown: function() {}
       });
 
-      test( "cubicVR mesh exists", function() {
+      test( "base prototype", function() {
         expect( 1 );
 
         var mesh = new Mesh(this.service);
-        ok(mesh.hasOwnProperty("mesh"), "mesh is wrapping a cubic VR mesh");
+        ok( mesh instanceof this.service.target.context.Mesh, "mesh is instance of cubicvr mesh" );
       });
 
       test ( "gladius dictionary exists", function() {

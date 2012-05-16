@@ -19,18 +19,18 @@ define(
         teardown: function() {}
       });
 
-      test( "cubicVR materialDefinition exists", function() {
+      test( "base prototype", function() {
         expect( 1 );
 
         var materialDefinition = new MaterialDefinition(this.service);
-        ok(materialDefinition.hasOwnProperty("materialDefinition"), "materialDefinition is wrapping a cubic VR materialDefinition");
+        ok( materialDefinition instanceof this.service.target.context.Material, "material definition is instance of cubicvr material" );
       });
 
       test ( "gladius dictionary exists", function() {
         expect( 1 );
 
         var materialDefinition = new MaterialDefinition(this.service);
-        ok(materialDefinition.hasOwnProperty("_gladius"), "materialDefinition has a gladius dictionary");
+        ok(materialDefinition.hasOwnProperty("_gladius"), "material definition has a gladius dictionary");
       });
 
     };

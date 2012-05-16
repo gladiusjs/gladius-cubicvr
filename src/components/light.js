@@ -4,7 +4,7 @@ if ( typeof define !== "function" ) {
 
 define(
   [ "src/resources/light-definition",
-    "lib/_math"],
+    "_math"],
   function ( LightDefinition, Math ) {
 
     var Light = function( service, lightDefinition ){
