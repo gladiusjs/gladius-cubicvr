@@ -1,7 +1,7 @@
 
-  var Extension = require( "gladius-cubicvr" );
+  var extension = require( "../src/gladius-cubicvr" );
 
-  return Extension;
+  return extension;
   
 }));
 

@@ -12,18 +12,19 @@ define( function ( require ) {
         "renderer": {
           service: require( "src/services/renderer" ),
           components: {
-            // "Camera": require( "components/camera" ),
+            // "Camera": require( "src/components/camera" ),
             "Light": require( "src/components/light" )
           },
           resources: {
             "Mesh": require( "src/resources/mesh" ),
-            // "MaterialDefinition": require( "resources/material-definition" )
+            "MaterialDefinition": require( "src/resources/material-definition" ),
+            // "Texture": require( "src/resources/texture" )
           }
         }
       },
       
       components: {
-        // "Model": require( "components/model" )
+        // "Model": require( "src/components/model" )
       },
       
       resources: {
