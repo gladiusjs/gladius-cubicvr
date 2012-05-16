@@ -17,7 +17,7 @@ define( function ( require ) {
           },
           resources: {
             "Mesh": require( "src/resources/mesh" ),
-            "MaterialDefinition": require( "src/resources/material-definition" ),
+            "MaterialDefinition": require( "src/resources/material-definition" )
             // "Texture": require( "src/resources/texture" )
           }
         }

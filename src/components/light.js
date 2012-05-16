@@ -49,7 +49,7 @@ define(
             //Set the corresponding property in cubicVRLight
             that._cubicVRLight[propertyName] = value;
           }
-        })
+        });
       };
 
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
@@ -64,7 +64,7 @@ define(
         //Guess that the transform must change to the correct values before this method gets called
         this._cubicVRLight.position = this.owner.findComponent( "Transform" ).absolute();
         this._cubicVRLight.position = this.owner.findComponent( "Rotation" ).absolute();
-      }
+      };
 
     };
 
