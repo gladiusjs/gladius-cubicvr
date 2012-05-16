@@ -28,6 +28,17 @@ define( function ( require ) {
     var spaces = {};
     var sIndex, sLength;
 
+    // Update all graphics components
+    var updateEvent = new engine.core.Event( 'Update', false );
+    for( var componentType in that.components ) {
+      for( var entityId in that.components[componentType] ) {
+        component = that.components[componentType][entityId];
+        while( component.handleQueuedEvent() ) {
+          updateEvent( component );
+        }
+      }
+    }
+
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     var cameraOwnerIds = Object.keys( this.registeredComponents["Camera"] || {} );
@@ -47,11 +58,10 @@ define( function ( require ) {
       var lightEntities = space.findAllWith( "Light" );
 
       // Handle lights for the current space
-      var cvrLights = [];
+      var cubicvrLights = [];
       for( i = 0, l = lightEntities.length; i < l; ++ i ) {
-        var lightComponent = lightEntities[i].find( "Light" );
-        lightComponent.prepareForRender();
-        cvrLights.push( lightComponent._cvr.light );
+        var light = lightEntities[i].find( "Light" );
+        cubicvrLights.push( lightComponent._cvr.light );
       }
 
       // Render the space for each camera
@@ -61,13 +71,12 @@ define( function ( require ) {
         for( var mi = 0, ml = modelEntities.length; mi < ml; ++mi ) {
           var model = modelEntities[ mi ].find( 'Model' );
           var transform = modelEntities[ mi ].find( 'Transform' );
-          camera.prepareForRender();
 
           context.renderObject(
-              model.mesh._cvr.mesh,
-              camera._cvr.camera,
-              transform.absolute,
-              cvrLights
+              model._cubicvrMesh,
+              camera._cubicvrCamera,
+              transform.absolute(),
+              cubicvrLights
           );
         }
       }

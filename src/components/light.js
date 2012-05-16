@@ -8,7 +8,7 @@ define( function ( require ) {
     var Component = require( "base/component" );
     var extend = require( "common/extend" );
 
-    //Assign all of these values to the cubicVRLight
+    //Assign all of these values to the cubicvrLight
     var properties = [
       "light_type",
       "diffuse",
@@ -30,9 +30,9 @@ define( function ( require ) {
         lightDefinition = new LightDefinition();
       }
 
-      this._cubicVRLight = new service.target.context.Light(lightDefinition);
+      this._cubicvrLight = new service.target.context.Light(lightDefinition);
 
-      this._cubicVRLight.parent = {};
+      this._cubicvrLight.parent = {};
 
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
         this[properties[propertyIndex]] = lightDefinition[properties[propertyIndex]];
@@ -44,9 +44,9 @@ define( function ( require ) {
 
     function onUpdate(event){
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
-        this._cubicVRLight[properties[propertyIndex]] = this[properties[propertyIndex]];
+        this._cubicvrLight[properties[propertyIndex]] = this[properties[propertyIndex]];
       }
-      this._cubicVRLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
+      this._cubicvrLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
     }
 
     function onEntitySpaceChanged( event ) {
