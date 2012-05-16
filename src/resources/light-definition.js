@@ -6,6 +6,7 @@ define( function ( require ) {
 
   var LightDefinition = function( data ) {
     data = data || {};
+    this._gladius = {};
 
     this.light_type = (data.light_type !== undefined) ?  data.light_type : LightDefinition.LightTypes.POINT;
     this.diffuse = (data.diffuse !== undefined) ? data.diffuse : [ 1, 1, 1 ];

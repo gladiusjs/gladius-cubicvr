@@ -9,7 +9,9 @@ define( function ( require ) {
   // MaterialDefinition is constructed.
 
   var MaterialDefinition = function( service, data ) {
-    return new service.target.context.Material( data );
+    var material = new service.target.context.Material( data );
+    materia._gladius = {};
+    return material;
   };
 
   return MaterialDefinition;

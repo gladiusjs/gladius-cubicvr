@@ -5,7 +5,9 @@ if ( typeof define !== "function" ) {
 define( function ( require ) {
 
   var Mesh = function( service, data ) {
-    return new service.target.context.Mesh( data );
+    var mesh = new service.target.context.Mesh( data );
+    mesh._gladius = {};
+    return mesh;
   };
 
   return Mesh;
