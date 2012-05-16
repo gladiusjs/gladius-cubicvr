@@ -15,7 +15,7 @@ define(
           this.target = new Target( canvasElement );
           this.service = {
             target: this.target
-          }
+          };
         },
         teardown: function() {}
       });

@@ -10,7 +10,7 @@ define( function ( require ) {
 
   var MaterialDefinition = function( service, data ) {
     var material = new service.target.context.Material( data );
-    materia._gladius = {};
+    material._gladius = {};
     return material;
   };
 
