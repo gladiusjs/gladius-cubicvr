@@ -4,9 +4,9 @@ if ( typeof define !== "function" ) {
 
 define(
   [ "src/resources/light-definition" ],
-  function ( LightDefinition) {
+  function ( LightDefinition ) {
 
-    var Light = function(service, lightDefinition){
+    var Light = function( service, lightDefinition ){
 
       if (!(lightDefinition instanceof LightDefinition)){
         lightDefinition = new LightDefinition();
