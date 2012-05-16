@@ -32,7 +32,7 @@
   // gladius.js references gladius-src in a document.write string, so it will
   // not be found by the AST analysis done in the optimizer.
   include: [
-            '../srcgladius-cubicvr',
+            '../src/gladius-cubicvr',
            ],
 
   // Wraps the built file in a closure and exports gladius as a global.
