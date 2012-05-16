@@ -56,11 +56,11 @@ define( function ( require ) {
 
       // Render the space for each camera
       for( i = 0, l = cameraEntities.length; i < l; ++ i ) {
-        var cameraComponent = cameras[ i ].find( "Camera" );
+        var camera = cameraEntities[ i ].find( "Camera" );
 
-        for( var mi = 0, ml = models.length; mi < ml; ++mi ) {
-          model = models[ mi ].find( 'Model' );
-          transform = models[ mi ].find( 'Transform' );
+        for( var mi = 0, ml = modelEntities.length; mi < ml; ++mi ) {
+          var model = modelEntities[ mi ].find( 'Model' );
+          var transform = modelEntities[ mi ].find( 'Transform' );
           camera.prepareForRender();
 
           context.renderObject(
