@@ -2,7 +2,7 @@ if ( typeof define !== "function" ) {
   var define = require( "amdefine" )( module );
 }
 
-define( function() {
+define( function( require ) {
 
   var extend = require( "common/extend" );
   var Component = require( "base/component" );
