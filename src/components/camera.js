@@ -8,7 +8,9 @@ define( function( require ) {
   var Component = require( "base/component" );
 
   var Camera = function( service ) {
+    Component.call( this, "Camera", service, ["Transform"] );
 
+    this._cubicvrCamera = new service.target.context.Camera();
   };
   Camera.prototype = new Component();
   Camera.prototype.constructor = Camera;

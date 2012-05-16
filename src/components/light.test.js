@@ -103,16 +103,16 @@ define(
         deepEqual(light.areaAxis, [ 123, 234, 345 ], "set area axis is correct");
       });
 
-      test("functionality of onUpdate", function() {
+      test("update handler", function() {
         expect(1);
         var light = new Light(this.service);
         ok(light.hasOwnProperty("onUpdate"), "light has update handler");
       });
 
-      test("cubicVR light exists", function(){
+      test("cubicvr light exists", function(){
         expect(1);
         var light = new Light(this.service);
-        ok(light.hasOwnProperty("_cubicVRLight"), "light is wrapping a cubic VR light");
+        ok(light.hasOwnProperty("_cubicVRLight"), "light is wrapping a cubicvr light");
       });
 
     };

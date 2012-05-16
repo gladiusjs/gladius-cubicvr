@@ -10,6 +10,8 @@ define( function( require ) {
           "src/components/light.test",
           "src/components/model.test",
           "src/resources/light-definition.test",
+          "src/resources/material-definition.test",
+          "src/resources/mesh.test",
           "src/services/renderer.test",
           "src/services/target.test"
 
