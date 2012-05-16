@@ -112,7 +112,7 @@ define(
       test("cubicvr light exists", function(){
         expect(1);
         var light = new Light(this.service);
-        ok(light.hasOwnProperty("_cubicVRLight"), "light is wrapping a cubicvr light");
+        ok(light.hasOwnProperty("_cubicvrLight"), "light is wrapping a cubicvr light");
       });
 
     };

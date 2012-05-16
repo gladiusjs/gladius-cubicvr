@@ -29,7 +29,7 @@ define( function ( require ) {
     var sIndex, sLength;
 
     // Update all graphics components
-    var updateEvent = new engine.core.Event( 'Update', queue: false );
+    var updateEvent = new engine.core.Event( 'Update', false );
     for( var componentType in that.components ) {
       for( var entityId in that.components[componentType] ) {
         component = that.components[componentType][entityId];
