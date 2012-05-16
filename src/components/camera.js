@@ -10,7 +10,13 @@ define( function( require ) {
   var Camera = function( service ) {
     Component.call( this, "Camera", service, ["Transform"] );
 
-    this._cubicvrCamera = new service.target.context.Camera();
+    this._cubicvrCamera = new service.target.context.Camera({
+      width: service.target.context.width,
+      height: service.target.context.height,
+      fov: 60,
+      calcNormalMatrix: true
+    });
+    this._cubicvrCamera.position = [0, 0, 0];
   };
   Camera.prototype = new Component();
   Camera.prototype.constructor = Camera;

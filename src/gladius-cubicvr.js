@@ -12,8 +12,9 @@ define( function ( require ) {
         "renderer": {
           service: require( "src/services/renderer" ),
           components: {
-            // "Camera": require( "src/components/camera" ),
-            "Light": require( "src/components/light" )
+            "Camera": require( "src/components/camera" ),
+            "Light": require( "src/components/light" ),
+            "Model": require( "src/components/model" )
           },
           resources: {
             "Mesh": require( "src/resources/mesh" ),
@@ -24,7 +25,6 @@ define( function ( require ) {
       },
       
       components: {
-        // "Model": require( "src/components/model" )
       },
       
       resources: {

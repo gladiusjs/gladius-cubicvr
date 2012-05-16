@@ -7,6 +7,7 @@ define( function ( require ) {
   var Service = require( "base/service" );
   require( "CubicVR" );
   var Target = require( "src/services/target" );
+  var Event = require( "core/event" );
 
   var Renderer = function( scheduler, options ) {
     options = options || {};
@@ -29,21 +30,20 @@ define( function ( require ) {
     var sIndex, sLength;
 
     // Update all graphics components
-    var updateEvent = new engine.core.Event( 'Update', false );
-    for( var componentType in that.components ) {
-      for( var entityId in that.components[componentType] ) {
-        component = that.components[componentType][entityId];
-        while( component.handleQueuedEvent() ) {
-          updateEvent( component );
-        }
+    var updateEvent = new Event( 'Update', false );
+    for( var componentType in this._registeredComponents ) {
+      for( var entityId in this._registeredComponents[componentType] ) {
+        component = this._registeredComponents[componentType][entityId];
+        while( component.handleQueuedEvent() ) {}
+        updateEvent( component );
       }
     }
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    var cameraOwnerIds = Object.keys( this.registeredComponents["Camera"] || {} );
+    var cameraOwnerIds = Object.keys( this._registeredComponents["Camera"] || {} );
     cameraOwnerIds.forEach( function( id ) {
-      var ownerSpace = this.registeredComponents["Camera"][id].owner.space;
+      var ownerSpace = this._registeredComponents["Camera"][id].owner.space;
       if( !spaces.hasOwnProperty( ownerSpace.id ) ) {
         spaces[ownerSpace.id] = ownerSpace;
       }
