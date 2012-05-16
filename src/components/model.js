@@ -10,8 +10,8 @@ define( function( require ) {
   var Model = function( service, mesh, materialDefinition ) {
     Component.call( this, "Model", service, ["Transform"] );
 
-    this.mesh = mesh || new service.target.context.Mesh();
-    this.materialDefinition = materialDefinition || 
+    this._cubicvrMesh = mesh || new service.target.context.Mesh();
+    this._cubicvrMaterialDefinition = materialDefinition || 
       new service.target.context.Material();
   };
   Model.prototype = new Component();
