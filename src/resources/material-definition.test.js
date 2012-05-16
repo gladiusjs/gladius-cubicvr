@@ -3,8 +3,9 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "resources/material-definition" ],
-  function( MaterialDefinition ) {
+  [ "src/resources/material-definition", 
+    "src/services/target" ],
+  function( MaterialDefinition, Target ) {
     return function() {
 
       module( "MaterialDefinition", {

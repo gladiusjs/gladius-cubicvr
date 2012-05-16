@@ -3,7 +3,8 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "resources/mesh", "services/target" ],
+  [ "src/resources/mesh", 
+    "src/services/target" ],
   function( Mesh, Target ) {
     return function() {
 
