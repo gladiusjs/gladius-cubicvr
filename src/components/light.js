@@ -3,8 +3,9 @@ if ( typeof define !== "function" ) {
 }
 
 define(
-  [ "src/resources/light-definition" ],
-  function ( LightDefinition ) {
+  [ "src/resources/light-definition",
+    "lib/_math"],
+  function ( LightDefinition, Math ) {
 
     var Light = function( service, lightDefinition ){
 
@@ -57,13 +58,9 @@ define(
       }
 
       this.onUpdate = function(){
-        //You can see something that might be a good example of an update function in old-src/physics/2d/box2d/service.js
-
-        //In our update function we need to set the cubicVR light's position to the absolute transform
-        //Not really sure how that will do anything other than make every single light be in the same position.
-        //Guess that the transform must change to the correct values before this method gets called
-        this._cubicVRLight.position = this.owner.findComponent( "Transform" ).absolute();
-        this._cubicVRLight.position = this.owner.findComponent( "Rotation" ).absolute();
+        //This should return the absolute light position
+        this._cubicVRLight.position = Math.matrix4.multiplyVector3(this.owner.findComponent( "Transform" ).absolute(), [ 0, 0, 0]);
+        //this._cubicVRLight.rotation = this.owner.findComponent( "Rotation" ).absolute();
       };
 
     };
