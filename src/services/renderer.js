@@ -25,15 +25,16 @@ define( function ( require ) {
 
   function render() {
     var context = this.target.context;
+    var registeredComponents = this._registeredComponents;
     var gl = context.GLCore.gl;
     var spaces = {};
     var sIndex, sLength;
 
     // Update all graphics components
     var updateEvent = new Event( 'Update', false );
-    for( var componentType in this._registeredComponents ) {
-      for( var entityId in this._registeredComponents[componentType] ) {
-        component = this._registeredComponents[componentType][entityId];
+    for( var componentType in registeredComponents ) {
+      for( var entityId in registeredComponents[componentType] ) {
+        component = registeredComponents[componentType][entityId];
         while( component.handleQueuedEvent() ) {}
         updateEvent( component );
       }
@@ -41,9 +42,9 @@ define( function ( require ) {
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    var cameraOwnerIds = Object.keys( this._registeredComponents["Camera"] || {} );
+    var cameraOwnerIds = Object.keys( registeredComponents["Camera"] || {} );
     cameraOwnerIds.forEach( function( id ) {
-      var ownerSpace = this._registeredComponents["Camera"][id].owner.space;
+      var ownerSpace = registeredComponents["Camera"][id].owner.space;
       if( !spaces.hasOwnProperty( ownerSpace.id ) ) {
         spaces[ownerSpace.id] = ownerSpace;
       }
