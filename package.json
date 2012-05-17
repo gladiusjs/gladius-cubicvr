@@ -1,3 +1,6 @@
 {
-  "name": "gladius-cubicvr"
+  "name": "gladius-cubicvr",
+  "volo": {
+    "url": "https://github.com/downloads/gladiusjs/gladius-cubicvr/gladius-cubicvr-{version}.js"
+  }
 }
