@@ -17,17 +17,17 @@ define( function( require ) {
       fov: 60,
       calcNormalMatrix: true
     });
-    this._cubicvrCamera.parent = {};
+    this._cubicvrCamera.parent = {
+      tMatrix: math.matrix4.identity
+    };
     this._cubicvrCamera.position = [0, 0, 0];
     this.target = math.vector3.zero;
-    this._cubicvrCamera.setTargeted( true );
   };
   Camera.prototype = new Component();
   Camera.prototype.constructor = Camera;
 
   function onUpdate( event ) {
     this._cubicvrCamera.parent.tMatrix = this.owner.findComponent("Transform").absolute();
-    this._cubicvrCamera.lookat( this.target );
   }
 
   function onEntitySpaceChanged( event ) {
@@ -61,16 +61,11 @@ define( function( require ) {
     }
   }
 
-  function setTarget( target ) {
-    this.target = target;
-  }
-
   var prototype = {
     onUpdate: onUpdate,
     onEntitySpaceChanged: onEntitySpaceChanged,
     onComponentOwnerChanged: onComponentOwnerChanged,
-    onEntityActivationChanged: onEntityActivationChanged,
-    setTarget: setTarget
+    onEntityActivationChanged: onEntityActivationChanged
   };
   extend( Camera.prototype, prototype );
 
