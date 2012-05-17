@@ -51,8 +51,9 @@ define( function ( require ) {
     });
     var spaceIds = Object.keys( spaces );
 
-    for( sIndex = 0, sLength = spaces.length; sIndex < sLength; ++ sIndex ) {
-      var space = spaces[sIndex];
+    for( sIndex = 0, sLength = spaceIds.length; sIndex < sLength; ++ sIndex ) {
+      var spaceId = spaceIds[sIndex];
+      var space = spaces[spaceId];
       var i, l;
       var cameraEntities = space.findAllWith( "Camera" );
       var modelEntities = space.findAllWith( "Model" );
@@ -61,17 +62,19 @@ define( function ( require ) {
       // Handle lights for the current space
       var cubicvrLights = [];
       for( i = 0, l = lightEntities.length; i < l; ++ i ) {
-        var light = lightEntities[i].find( "Light" );
-        cubicvrLights.push( lightComponent._cvr.light );
+        var light = lightEntities[i].findComponent( "Light" );
+        cubicvrLights.push( light._cubicvrLight );
       }
 
       // Render the space for each camera
       for( i = 0, l = cameraEntities.length; i < l; ++ i ) {
-        var camera = cameraEntities[ i ].find( "Camera" );
+        var camera = cameraEntities[ i ].findComponent( "Camera" );
 
         for( var mi = 0, ml = modelEntities.length; mi < ml; ++mi ) {
-          var model = modelEntities[ mi ].find( 'Model' );
-          var transform = modelEntities[ mi ].find( 'Transform' );
+          var model = modelEntities[ mi ].findComponent( "Model" );
+          var transform = modelEntities[ mi ].findComponent( "Transform" );
+
+          model._cubicvrMesh.instanceMaterials = [model._cubicvrMaterialDefinition];
 
           context.renderObject(
               model._cubicvrMesh,
@@ -79,6 +82,8 @@ define( function ( require ) {
               transform.absolute(),
               cubicvrLights
           );
+
+          model._cubicvrMesh.instanceMaterials = null;
         }
       }
     }

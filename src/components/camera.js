@@ -6,6 +6,7 @@ define( function( require ) {
 
   var extend = require( "common/extend" );
   var Component = require( "base/component" );
+  var math = require( "_math" );
 
   var Camera = function( service ) {
     Component.call( this, "Camera", service, ["Transform"] );
@@ -18,12 +19,15 @@ define( function( require ) {
     });
     this._cubicvrCamera.parent = {};
     this._cubicvrCamera.position = [0, 0, 0];
+    this.target = math.vector3.zero;
+    this._cubicvrCamera.setTargeted( true );
   };
   Camera.prototype = new Component();
   Camera.prototype.constructor = Camera;
 
   function onUpdate( event ) {
     this._cubicvrCamera.parent.tMatrix = this.owner.findComponent("Transform").absolute();
+    this._cubicvrCamera.lookat( this.target );
   }
 
   function onEntitySpaceChanged( event ) {
@@ -57,11 +61,16 @@ define( function( require ) {
     }
   }
 
+  function setTarget( target ) {
+    this.target = target;
+  }
+
   var prototype = {
     onUpdate: onUpdate,
     onEntitySpaceChanged: onEntitySpaceChanged,
     onComponentOwnerChanged: onComponentOwnerChanged,
-    onEntityActivationChanged: onEntityActivationChanged
+    onEntityActivationChanged: onEntityActivationChanged,
+    setTarget: setTarget
   };
   extend( Camera.prototype, prototype );
 
