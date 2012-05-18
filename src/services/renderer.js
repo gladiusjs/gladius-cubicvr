@@ -70,6 +70,10 @@ define( function ( require ) {
       for( i = 0, l = cameraEntities.length; i < l; ++ i ) {
         var camera = cameraEntities[ i ].findComponent( "Camera" );
 
+        cubicvrLights.forEach( function( light ) {
+          light.prepare( camera._cubicvrCamera );
+        });
+
         for( var mi = 0, ml = modelEntities.length; mi < ml; ++mi ) {
           var model = modelEntities[ mi ].findComponent( "Model" );
           var transform = modelEntities[ mi ].findComponent( "Transform" );

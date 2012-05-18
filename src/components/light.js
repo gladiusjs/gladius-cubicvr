@@ -32,17 +32,18 @@ define( function ( require ) {
 
       this._cubicvrLight = new service.target.context.Light(lightDefinition);
 
-      this._cubicvrLight.parent = {};
+      this._cubicvrLight.parent = {
+        tMatrix: null
+      };
 
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
         this[properties[propertyIndex]] = lightDefinition[properties[propertyIndex]];
       }
-
     };
     Light.prototype = new Component();
     Light.prototype.constructor = Light;
 
-    function onUpdate(event){
+    function onUpdate( event ){
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
         this._cubicvrLight[properties[propertyIndex]] = this[properties[propertyIndex]];
       }
@@ -64,6 +65,10 @@ define( function ( require ) {
       var data = event.data;
       if( data.previous === null && this.owner !== null ) {
         this.provider.registerComponent( this.owner.id, this );
+      }
+
+      if( this.owner ) {
+        this._cubicvrLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
       }
 
       if( this.owner === null && data.previous !== null ) {
