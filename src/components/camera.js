@@ -55,6 +55,10 @@ define( function( require ) {
       this.provider.registerComponent( this.owner.id, this );
     }
 
+    if( this.owner ) {
+      this._cubicvrCamera.parent.tMatrix = this.owner.findComponent("Transform").absolute();
+    }
+
     if( this.owner === null && data.previous !== null ) {
       this.provider.unregisterComponent( data.previous.id, this );
     }
