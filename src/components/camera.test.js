@@ -30,7 +30,7 @@ define(
       test("cubicvr camera exists", function(){
         expect(1);
         var camera = new Camera(this.service);
-        ok(camera.hasOwnProperty("_cubicVRCamera"), "camera is wrapping a cubicvr camera");
+        ok(camera.hasOwnProperty("_cubicvrCamera"), "camera is wrapping a cubicvr camera");
       });
 
     };
