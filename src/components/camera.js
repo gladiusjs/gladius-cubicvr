@@ -36,6 +36,7 @@ define( function( require ) {
       this._cubicvrCamera.lookat( this.target );
       this._targetHasChanged = false;
     }
+    this._cubicvrCamera.calcProjection();
   }
 
   function onEntitySpaceChanged( event ) {
