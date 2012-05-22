@@ -36,6 +36,7 @@ define( function( require ) {
       this._cubicvrCamera.lookat( this.target );
       this._targetHasChanged = false;
     }
+    this._cubicvrCamera.calcProjection();
   }
 
   function onEntitySpaceChanged( event ) {
@@ -53,6 +54,10 @@ define( function( require ) {
     var data = event.data;
     if( data.previous === null && this.owner !== null ) {
       this.provider.registerComponent( this.owner.id, this );
+    }
+
+    if( this.owner ) {
+      this._cubicvrCamera.parent.tMatrix = this.owner.findComponent("Transform").absolute();
     }
 
     if( this.owner === null && data.previous !== null ) {

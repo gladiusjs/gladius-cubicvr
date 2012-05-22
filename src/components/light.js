@@ -7,6 +7,7 @@ define( function ( require ) {
     var LightDefinition = require( "src/resources/light-definition" );
     var Component = require( "base/component" );
     var extend = require( "common/extend" );
+    var math = require( "_math" );
 
     //Assign all of these values to the cubicvrLight
     var properties = [
@@ -33,7 +34,7 @@ define( function ( require ) {
       this._cubicvrLight = new service.target.context.Light(lightDefinition);
 
       this._cubicvrLight.parent = {
-        tMatrix: null
+        tMatrix: math.matrix4.identity
       };
 
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
@@ -54,6 +55,10 @@ define( function ( require ) {
       var data = event.data;
       if( data.previous === null && data.current !== null && this.owner !== null ) {
         this.provider.registerComponent( this.owner.id, this );
+      }
+
+      if( this.owner ) {
+        this._cubicvrLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
       }
 
       if( data.previous !== null && data.current === null && this.owner !== null ) {
