@@ -8,15 +8,17 @@ define( function( require ) {
   var Component = require( "base/component" );
   var math = require( "_math" );
 
-  var Camera = function( service ) {
+  var Camera = function( service, options ) {
     Component.call( this, "Camera", service, ["Transform"] );
+
+    options = options || {};
 
     this._cubicvrCamera = new service.target.context.Camera({
       width: service.target.context.width,
       height: service.target.context.height,
       fov: 60,
       calcNormalMatrix: true,
-      targeted: true
+      targeted: (options.targeted === undefined) ? false : options.targeted
     });
     this._cubicvrCamera.parent = {
       tMatrix: math.matrix4.identity
