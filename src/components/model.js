@@ -11,7 +11,7 @@ define( function( require ) {
     Component.call( this, "Model", service, ["Transform"] );
 
     this._cubicvrMesh = mesh || new service.target.context.Mesh();
-    setMaterialDefinition(materialDefinition || new service.target.context.Material());
+    setMaterialDefinition.call(this, materialDefinition || new service.target.context.Material());
   };
   Model.prototype = new Component();
   Model.prototype.constructor = Model;
