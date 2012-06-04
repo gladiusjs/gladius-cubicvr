@@ -17,6 +17,11 @@ define( function( require ) {
   Model.prototype = new Component();
   Model.prototype.constructor = Model;
 
+  function setMaterialDefinition(materialDefinition){
+    this._cubicvrMaterialDefinition = materialDefinition ||
+      new service.target.context.Material();
+  }
+
   function onUpdate( event ) {
   }
 
