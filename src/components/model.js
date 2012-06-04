@@ -11,15 +11,19 @@ define( function( require ) {
     Component.call( this, "Model", service, ["Transform"] );
 
     this._cubicvrMesh = mesh || new service.target.context.Mesh();
-    this._cubicvrMaterialDefinition = materialDefinition || 
-      new service.target.context.Material();
+    setMaterialDefinition(materialDefinition || new service.target.context.Material());
   };
   Model.prototype = new Component();
   Model.prototype.constructor = Model;
 
   function setMaterialDefinition(materialDefinition){
-    this._cubicvrMaterialDefinition = materialDefinition ||
-      new service.target.context.Material();
+    if (materialDefinition){
+      this._cubicvrMaterialDefinition = materialDefinition;
+    }
+  }
+
+  function getMaterialDefinition(){
+    return this._cubicvrMaterialDefinition;
   }
 
   function onUpdate( event ) {
@@ -57,6 +61,8 @@ define( function( require ) {
   }
 
   var prototype = {
+    getMaterialDefinition: getMaterialDefinition,
+    setMaterialDefinition: setMaterialDefinition,
     onUpdate: onUpdate,
     onEntitySpaceChanged: onEntitySpaceChanged,
     onComponentOwnerChanged: onComponentOwnerChanged,
