@@ -5,8 +5,9 @@ if ( typeof define !== "function" ) {
 define(
   [ "src/components/model",
     "src/resources/material-definition",
+    "src/resources/mesh",
     "src/services/target"],
-  function( Model, MaterialDefinition, Target ) {
+  function( Model, MaterialDefinition, Mesh, Target ) {
     return function() {
 
       module( "Model", {
@@ -29,7 +30,19 @@ define(
 
         equal(model.getMaterialDefinition(), materialDefinition, "material definition was set correctly");
         model.setMaterialDefinition();
-        equal(model.getMaterialDefinition(), materialDefinition, "model ignored request to set material to undefined");
+        equal(model.getMaterialDefinition(), undefined, "material definition is cleared");
+      });
+
+      test( "getMesh and setMesh work correctly", function() {
+        expect( 2 );
+
+        var model = new Model(this.service);
+        var mesh = new Mesh(this.service);
+        model.setMesh(mesh);
+
+        equal(model.getMesh(), mesh, "mesh was set correctly");
+        model.setMesh();
+        equal(model.getMesh(), undefined, "mesh is cleared");
       });
     };
   }
