@@ -1,4 +1,4 @@
-Development repository for Gladius engine core.
+Development repository for CubicVR rendering backend for Gladius.
 If you're looking to get started with using Gladius, please checkout the main repository [here](https://github.com/gladiusjs/gladius).
 
 # Getting Started
