@@ -29,9 +29,10 @@ define( function ( require ) {
     var gl = context.GLCore.gl;
     var spaces = {};
     var sIndex, sLength;
+    var component;
 
     // Update all graphics components
-    var updateEvent = new Event( 'Update', false );
+    var updateEvent = new Event( 'Update', undefined, false );
     for( var componentType in registeredComponents ) {
       for( var entityId in registeredComponents[componentType] ) {
         component = registeredComponents[componentType][entityId];
