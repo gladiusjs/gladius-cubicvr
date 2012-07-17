@@ -21,7 +21,7 @@ define( function( require ) {
       targeted: (options.targeted === undefined) ? false : options.targeted
     });
     this._cubicvrCamera.parent = {
-      tMatrix: math.matrix4.identity
+      tMatrix: _convertToCVRMatrix(math.matrix4.identity)
     };
     
     this.target = [0, 0, 0];
@@ -33,7 +33,7 @@ define( function( require ) {
   Camera.prototype.constructor = Camera;
 
   function onUpdate( event ) {
-    this._cubicvrCamera.parent.tMatrix = this.owner.findComponent("Transform").absolute();
+    this._cubicvrCamera.parent.tMatrix = _convertToCVRMatrix(this.owner.findComponent("Transform").worldMatrix().buffer);
     if( this._targetHasChanged ) {
       this._cubicvrCamera.lookat( this.target );
       this._targetHasChanged = false;
@@ -59,7 +59,7 @@ define( function( require ) {
     }
 
     if( this.owner ) {
-      this._cubicvrCamera.parent.tMatrix = this.owner.findComponent("Transform").absolute();
+      this._cubicvrCamera.parent.tMatrix = _convertToCVRMatrix(this.owner.findComponent("Transform").worldMatrix().buffer);
     }
 
     if( this.owner === null && data.previous !== null ) {
@@ -81,12 +81,28 @@ define( function( require ) {
     this._targetHasChanged = true;
   }
 
+  function _convertToCVRMatrix(gladiusMatrix){
+    //Swap out indexes 12, 13, 14 for 3, 7, 11
+    var buffer;
+    buffer = gladiusMatrix[12];
+    gladiusMatrix[12] = gladiusMatrix[3];
+    gladiusMatrix[3] = buffer;
+    buffer = gladiusMatrix[13];
+    gladiusMatrix[13] = gladiusMatrix[7];
+    gladiusMatrix[7] = buffer;
+    buffer = gladiusMatrix[14];
+    gladiusMatrix[14] = gladiusMatrix[11];
+    gladiusMatrix[11] = buffer;
+    return gladiusMatrix;
+  }
+
   var prototype = {
     onUpdate: onUpdate,
     onEntitySpaceChanged: onEntitySpaceChanged,
     onComponentOwnerChanged: onComponentOwnerChanged,
     onEntityActivationChanged: onEntityActivationChanged,
-    setTarget: setTarget
+    setTarget: setTarget,
+    _convertToCVRMatrix: _convertToCVRMatrix
   };
   extend( Camera.prototype, prototype );
 

@@ -34,7 +34,7 @@ define( function ( require ) {
       this._cubicvrLight = new service.target.context.Light(lightDefinition);
 
       this._cubicvrLight.parent = {
-        tMatrix: math.matrix4.identity
+        tMatrix: _convertToCVRMatrix(math.matrix4.identity)
       };
 
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
@@ -48,7 +48,7 @@ define( function ( require ) {
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
         this._cubicvrLight[properties[propertyIndex]] = this[properties[propertyIndex]];
       }
-      this._cubicvrLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
+      this._cubicvrLight.parent.tMatrix = _convertToCVRMatrix(this.owner.findComponent( "Transform" ).worldMatrix().buffer);
     }
 
     function onEntitySpaceChanged( event ) {
@@ -58,7 +58,7 @@ define( function ( require ) {
       }
 
       if( this.owner ) {
-        this._cubicvrLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
+        this._cubicvrLight.parent.tMatrix = _convertToCVRMatrix(this.owner.findComponent( "Transform" ).worldMatrix().buffer);
       }
 
       if( data.previous !== null && data.current === null && this.owner !== null ) {
@@ -73,7 +73,7 @@ define( function ( require ) {
       }
 
       if( this.owner ) {
-        this._cubicvrLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
+        this._cubicvrLight.parent.tMatrix = _convertToCVRMatrix(this.owner.findComponent( "Transform" ).worldMatrix().buffer);
       }
 
       if( this.owner === null && data.previous !== null ) {
@@ -90,11 +90,27 @@ define( function ( require ) {
       }
     }
 
+    function _convertToCVRMatrix(gladiusMatrix){
+      //Swap out indexes 12, 13, 14 for 3, 7, 11
+      var buffer;
+      buffer = gladiusMatrix[12];
+      gladiusMatrix[12] = gladiusMatrix[3];
+      gladiusMatrix[3] = buffer;
+      buffer = gladiusMatrix[13];
+      gladiusMatrix[13] = gladiusMatrix[7];
+      gladiusMatrix[7] = buffer;
+      buffer = gladiusMatrix[14];
+      gladiusMatrix[14] = gladiusMatrix[11];
+      gladiusMatrix[11] = buffer;
+      return gladiusMatrix;
+    }
+
     var prototype = {
       onUpdate: onUpdate,
       onEntitySpaceChanged: onEntitySpaceChanged,
       onComponentOwnerChanged: onComponentOwnerChanged,
-      onEntityActivationChanged: onEntityActivationChanged
+      onEntityActivationChanged: onEntityActivationChanged,
+      _convertToCVRMatrix : _convertToCVRMatrix
     };
     extend( Light.prototype, prototype );
 
