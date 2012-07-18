@@ -23,7 +23,7 @@ define( function( require ) {
     this._cubicvrCamera.parent = {
       tMatrix: []
     };
-    _convertToCVRMatrix(this._cubicvrCamera.parent.tMatrix, math.matrix4.identity);
+    _convertToCVRMatrix(this._cubicvrCamera.parent.tMatrix, new math.Matrix4(math.matrix4.identity));
 
     this.target = [0, 0, 0];
     this._targetHasChanged = false;
@@ -84,22 +84,22 @@ define( function( require ) {
 
   function _convertToCVRMatrix(cvrMatrix, gladiusMatrix){
     //Swap out indexes 12, 13, 14 for 3, 7, 11
-    cvrMatrix[0] = gladiusMatrix.getValue(0);
-    cvrMatrix[1] = gladiusMatrix.getValue(1);
-    cvrMatrix[2] = gladiusMatrix.getValue(2);
-    cvrMatrix[3] = gladiusMatrix.getValue(12);
-    cvrMatrix[4] = gladiusMatrix.getValue(4);
-    cvrMatrix[5] = gladiusMatrix.getValue(5);
-    cvrMatrix[6] = gladiusMatrix.getValue(6);
-    cvrMatrix[7] = gladiusMatrix.getValue(13);
-    cvrMatrix[8] = gladiusMatrix.getValue(8);
-    cvrMatrix[9] = gladiusMatrix.getValue(9);
-    cvrMatrix[10] = gladiusMatrix.getValue(10);
-    cvrMatrix[11] = gladiusMatrix.getValue(14);
-    cvrMatrix[12] = gladiusMatrix.getValue(3);
-    cvrMatrix[13] = gladiusMatrix.getValue(7);
-    cvrMatrix[14] = gladiusMatrix.getValue(11);
-    cvrMatrix[15] = gladiusMatrix.getValue(15);
+    cvrMatrix[0] = gladiusMatrix.buffer[0];
+    cvrMatrix[1] = gladiusMatrix.buffer[1];
+    cvrMatrix[2] = gladiusMatrix.buffer[2];
+    cvrMatrix[3] = gladiusMatrix.buffer[12];
+    cvrMatrix[4] = gladiusMatrix.buffer[4];
+    cvrMatrix[5] = gladiusMatrix.buffer[5];
+    cvrMatrix[6] = gladiusMatrix.buffer[6];
+    cvrMatrix[7] = gladiusMatrix.buffer[13];
+    cvrMatrix[8] = gladiusMatrix.buffer[8];
+    cvrMatrix[9] = gladiusMatrix.buffer[9];
+    cvrMatrix[10] = gladiusMatrix.buffer[10];
+    cvrMatrix[11] = gladiusMatrix.buffer[14];
+    cvrMatrix[12] = gladiusMatrix.buffer[3];
+    cvrMatrix[13] = gladiusMatrix.buffer[7];
+    cvrMatrix[14] = gladiusMatrix.buffer[11];
+    cvrMatrix[15] = gladiusMatrix.buffer[15];
     return cvrMatrix;
   }
 
