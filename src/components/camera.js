@@ -21,9 +21,10 @@ define( function( require ) {
       targeted: (options.targeted === undefined) ? false : options.targeted
     });
     this._cubicvrCamera.parent = {
-      tMatrix: _convertToCVRMatrix(math.matrix4.identity)
+      tMatrix: []
     };
-    
+    _convertToCVRMatrix(this._cubicvrCamera.parent.tMatrix, math.matrix4.identity);
+
     this.target = [0, 0, 0];
     this._targetHasChanged = false;
 
@@ -33,7 +34,7 @@ define( function( require ) {
   Camera.prototype.constructor = Camera;
 
   function onUpdate( event ) {
-    this._cubicvrCamera.parent.tMatrix = _convertToCVRMatrix(this.owner.findComponent("Transform").worldMatrix().buffer);
+    _convertToCVRMatrix(this._cubicvrCamera.parent.tMatrix, this.owner.findComponent("Transform").worldMatrix());
     if( this._targetHasChanged ) {
       this._cubicvrCamera.lookat( this.target );
       this._targetHasChanged = false;
@@ -59,7 +60,7 @@ define( function( require ) {
     }
 
     if( this.owner ) {
-      this._cubicvrCamera.parent.tMatrix = _convertToCVRMatrix(this.owner.findComponent("Transform").worldMatrix().buffer);
+      _convertToCVRMatrix(this._cubicvrCamera.parent.tMatrix, this.owner.findComponent("Transform").worldMatrix());
     }
 
     if( this.owner === null && data.previous !== null ) {
@@ -81,19 +82,25 @@ define( function( require ) {
     this._targetHasChanged = true;
   }
 
-  function _convertToCVRMatrix(gladiusMatrix){
+  function _convertToCVRMatrix(cvrMatrix, gladiusMatrix){
     //Swap out indexes 12, 13, 14 for 3, 7, 11
-    var buffer;
-    buffer = gladiusMatrix[12];
-    gladiusMatrix[12] = gladiusMatrix[3];
-    gladiusMatrix[3] = buffer;
-    buffer = gladiusMatrix[13];
-    gladiusMatrix[13] = gladiusMatrix[7];
-    gladiusMatrix[7] = buffer;
-    buffer = gladiusMatrix[14];
-    gladiusMatrix[14] = gladiusMatrix[11];
-    gladiusMatrix[11] = buffer;
-    return gladiusMatrix;
+    cvrMatrix[0] = gladiusMatrix.getValue(0);
+    cvrMatrix[1] = gladiusMatrix.getValue(1);
+    cvrMatrix[2] = gladiusMatrix.getValue(2);
+    cvrMatrix[3] = gladiusMatrix.getValue(12);
+    cvrMatrix[4] = gladiusMatrix.getValue(4);
+    cvrMatrix[5] = gladiusMatrix.getValue(5);
+    cvrMatrix[6] = gladiusMatrix.getValue(6);
+    cvrMatrix[7] = gladiusMatrix.getValue(13);
+    cvrMatrix[8] = gladiusMatrix.getValue(8);
+    cvrMatrix[9] = gladiusMatrix.getValue(9);
+    cvrMatrix[10] = gladiusMatrix.getValue(10);
+    cvrMatrix[11] = gladiusMatrix.getValue(14);
+    cvrMatrix[12] = gladiusMatrix.getValue(3);
+    cvrMatrix[13] = gladiusMatrix.getValue(7);
+    cvrMatrix[14] = gladiusMatrix.getValue(11);
+    cvrMatrix[15] = gladiusMatrix.getValue(15);
+    return cvrMatrix;
   }
 
   var prototype = {
