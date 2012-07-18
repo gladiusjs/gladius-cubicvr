@@ -23,6 +23,27 @@ define( function ( require ) {
     this.target = new Target( options.canvas );
   };
 
+  function _convertToCVRMatrix(cvrMatrix, gladiusMatrix){
+    //Swap out indexes 12, 13, 14 for 3, 7, 11
+    cvrMatrix[0] = gladiusMatrix.buffer[0];
+    cvrMatrix[1] = gladiusMatrix.buffer[1];
+    cvrMatrix[2] = gladiusMatrix.buffer[2];
+    cvrMatrix[3] = gladiusMatrix.buffer[12];
+    cvrMatrix[4] = gladiusMatrix.buffer[4];
+    cvrMatrix[5] = gladiusMatrix.buffer[5];
+    cvrMatrix[6] = gladiusMatrix.buffer[6];
+    cvrMatrix[7] = gladiusMatrix.buffer[13];
+    cvrMatrix[8] = gladiusMatrix.buffer[8];
+    cvrMatrix[9] = gladiusMatrix.buffer[9];
+    cvrMatrix[10] = gladiusMatrix.buffer[10];
+    cvrMatrix[11] = gladiusMatrix.buffer[14];
+    cvrMatrix[12] = gladiusMatrix.buffer[3];
+    cvrMatrix[13] = gladiusMatrix.buffer[7];
+    cvrMatrix[14] = gladiusMatrix.buffer[11];
+    cvrMatrix[15] = gladiusMatrix.buffer[15];
+    return cvrMatrix;
+  }
+
   function render() {
     var context = this.target.context;
     var registeredComponents = this._registeredComponents;
@@ -37,7 +58,7 @@ define( function ( require ) {
       for( var entityId in registeredComponents[componentType] ) {
         component = registeredComponents[componentType][entityId];
         while( component.handleQueuedEvent() ) {}
-        updateEvent( component );
+        updateEvent.dispatch( component );
       }
     }
 
@@ -67,6 +88,7 @@ define( function ( require ) {
         cubicvrLights.push( light._cubicvrLight );
       }
 
+      var convertedTransform = [];
       // Render the space for each camera
       for( i = 0, l = cameraEntities.length; i < l; ++ i ) {
         var camera = cameraEntities[ i ].findComponent( "Camera" );
@@ -78,13 +100,15 @@ define( function ( require ) {
         for( var mi = 0, ml = modelEntities.length; mi < ml; ++mi ) {
           var model = modelEntities[ mi ].findComponent( "Model" );
           var transform = modelEntities[ mi ].findComponent( "Transform" );
+          _convertToCVRMatrix(convertedTransform, transform.worldMatrix());
+
 
           model._cubicvrMesh.instanceMaterials = [model._cubicvrMaterialDefinition];
 
           context.renderObject(
               model._cubicvrMesh,
               camera._cubicvrCamera,
-              transform.absolute(),
+              convertedTransform,
               cubicvrLights
           );
 
