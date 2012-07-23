@@ -36,7 +36,7 @@ define( function ( require ) {
       this._cubicvrLight.parent = {
         tMatrix: []
       };
-      _convertToCVRMatrix(this._cubicvrLight.parent.tMatrix, new math.Matrix4(math.matrix4.identity));
+      _convertToCVRMatrix(this._cubicvrLight.parent.tMatrix, math.matrix4.identity);
 
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
         this[properties[propertyIndex]] = lightDefinition[properties[propertyIndex]];
@@ -93,22 +93,22 @@ define( function ( require ) {
 
   function _convertToCVRMatrix(cvrMatrix, gladiusMatrix){
     //Swap out indexes 12, 13, 14 for 3, 7, 11
-    cvrMatrix[0] = gladiusMatrix.buffer[0];
-    cvrMatrix[1] = gladiusMatrix.buffer[1];
-    cvrMatrix[2] = gladiusMatrix.buffer[2];
-    cvrMatrix[3] = gladiusMatrix.buffer[12];
-    cvrMatrix[4] = gladiusMatrix.buffer[4];
-    cvrMatrix[5] = gladiusMatrix.buffer[5];
-    cvrMatrix[6] = gladiusMatrix.buffer[6];
-    cvrMatrix[7] = gladiusMatrix.buffer[13];
-    cvrMatrix[8] = gladiusMatrix.buffer[8];
-    cvrMatrix[9] = gladiusMatrix.buffer[9];
-    cvrMatrix[10] = gladiusMatrix.buffer[10];
-    cvrMatrix[11] = gladiusMatrix.buffer[14];
-    cvrMatrix[12] = gladiusMatrix.buffer[3];
-    cvrMatrix[13] = gladiusMatrix.buffer[7];
-    cvrMatrix[14] = gladiusMatrix.buffer[11];
-    cvrMatrix[15] = gladiusMatrix.buffer[15];
+    cvrMatrix[0] = gladiusMatrix[0];
+    cvrMatrix[1] = gladiusMatrix[4];
+    cvrMatrix[2] = gladiusMatrix[8];
+    cvrMatrix[3] = gladiusMatrix[12];
+    cvrMatrix[4] = gladiusMatrix[1];
+    cvrMatrix[5] = gladiusMatrix[5];
+    cvrMatrix[6] = gladiusMatrix[9];
+    cvrMatrix[7] = gladiusMatrix[13];
+    cvrMatrix[8] = gladiusMatrix[2];
+    cvrMatrix[9] = gladiusMatrix[6];
+    cvrMatrix[10] = gladiusMatrix[10];
+    cvrMatrix[11] = gladiusMatrix[14];
+    cvrMatrix[12] = gladiusMatrix[3];
+    cvrMatrix[13] = gladiusMatrix[7];
+    cvrMatrix[14] = gladiusMatrix[11];
+    cvrMatrix[15] = gladiusMatrix[15];
     return cvrMatrix;
   }
 
