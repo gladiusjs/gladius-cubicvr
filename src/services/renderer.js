@@ -8,6 +8,7 @@ define( function ( require ) {
   require( "CubicVR" );
   var Target = require( "src/services/target" );
   var Event = require( "core/event" );
+  var math = require( "_math" );
 
   var Renderer = function( scheduler, options ) {
     options = options || {};
