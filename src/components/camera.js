@@ -21,9 +21,8 @@ define( function( require ) {
       targeted: (options.targeted === undefined) ? false : options.targeted
     });
     this._cubicvrCamera.parent = {
-      tMatrix: []
+      tMatrix: new math.T()
     };
-    _convertToCVRMatrix(this._cubicvrCamera.parent.tMatrix, math.matrix4.identity);
 
     this.target = [0, 0, 0];
     this._targetHasChanged = false;
@@ -34,7 +33,7 @@ define( function( require ) {
   Camera.prototype.constructor = Camera;
 
   function onUpdate( event ) {
-    _convertToCVRMatrix(this._cubicvrCamera.parent.tMatrix, this.owner.findComponent("Transform").worldMatrix());
+    math.matrix4.transpose(this.owner.findComponent( "Transform" ).worldMatrix(), this._cubicvrCamera.parent.tMatrix);
     if( this._targetHasChanged ) {
       this._cubicvrCamera.lookat( this.target );
       this._targetHasChanged = false;
@@ -60,7 +59,7 @@ define( function( require ) {
     }
 
     if( this.owner ) {
-      _convertToCVRMatrix(this._cubicvrCamera.parent.tMatrix, this.owner.findComponent("Transform").worldMatrix());
+      math.matrix4.transpose(this.owner.findComponent( "Transform" ).worldMatrix(), this._cubicvrCamera.parent.tMatrix);
     }
 
     if( this.owner === null && data.previous !== null ) {
@@ -82,34 +81,12 @@ define( function( require ) {
     this._targetHasChanged = true;
   }
 
-  function _convertToCVRMatrix(cvrMatrix, gladiusMatrix){
-    //Swap out indexes 12, 13, 14 for 3, 7, 11
-    cvrMatrix[0] = gladiusMatrix[0];
-    cvrMatrix[1] = gladiusMatrix[4];
-    cvrMatrix[2] = gladiusMatrix[8];
-    cvrMatrix[3] = gladiusMatrix[12];
-    cvrMatrix[4] = gladiusMatrix[1];
-    cvrMatrix[5] = gladiusMatrix[5];
-    cvrMatrix[6] = gladiusMatrix[9];
-    cvrMatrix[7] = gladiusMatrix[13];
-    cvrMatrix[8] = gladiusMatrix[2];
-    cvrMatrix[9] = gladiusMatrix[6];
-    cvrMatrix[10] = gladiusMatrix[10];
-    cvrMatrix[11] = gladiusMatrix[14];
-    cvrMatrix[12] = gladiusMatrix[3];
-    cvrMatrix[13] = gladiusMatrix[7];
-    cvrMatrix[14] = gladiusMatrix[11];
-    cvrMatrix[15] = gladiusMatrix[15];
-    return cvrMatrix;
-  }
-
   var prototype = {
     onUpdate: onUpdate,
     onEntitySpaceChanged: onEntitySpaceChanged,
     onComponentOwnerChanged: onComponentOwnerChanged,
     onEntityActivationChanged: onEntityActivationChanged,
-    setTarget: setTarget,
-    _convertToCVRMatrix: _convertToCVRMatrix
+    setTarget: setTarget
   };
   extend( Camera.prototype, prototype );
 
