@@ -34,7 +34,7 @@ define( function ( require ) {
       this._cubicvrLight = new service.target.context.Light(lightDefinition);
 
       this._cubicvrLight.parent = {
-        tMatrix: math.matrix4.identity
+        tMatrix: new math.T()
       };
 
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
@@ -48,7 +48,7 @@ define( function ( require ) {
       for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
         this._cubicvrLight[properties[propertyIndex]] = this[properties[propertyIndex]];
       }
-      this._cubicvrLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
+      math.matrix4.transpose(this.owner.findComponent( "Transform" ).worldMatrix(), this._cubicvrLight.parent.tMatrix);
     }
 
     function onEntitySpaceChanged( event ) {
@@ -58,7 +58,7 @@ define( function ( require ) {
       }
 
       if( this.owner ) {
-        this._cubicvrLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
+        math.matrix4.transpose(this.owner.findComponent( "Transform" ).worldMatrix(), this._cubicvrLight.parent.tMatrix);
       }
 
       if( data.previous !== null && data.current === null && this.owner !== null ) {
@@ -73,7 +73,7 @@ define( function ( require ) {
       }
 
       if( this.owner ) {
-        this._cubicvrLight.parent.tMatrix = this.owner.findComponent( "Transform" ).absolute();
+        math.matrix4.transpose(this.owner.findComponent( "Transform" ).worldMatrix(), this._cubicvrLight.parent.tMatrix);
       }
 
       if( this.owner === null && data.previous !== null ) {

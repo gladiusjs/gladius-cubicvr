@@ -8,6 +8,7 @@ define( function ( require ) {
   require( "CubicVR" );
   var Target = require( "src/services/target" );
   var Event = require( "core/event" );
+  var math = require( "_math" );
 
   var Renderer = function( scheduler, options ) {
     options = options || {};
@@ -23,6 +24,8 @@ define( function ( require ) {
     this.target = new Target( options.canvas );
   };
 
+  var convertedTransform = new math.T();
+
   function render() {
     var context = this.target.context;
     var registeredComponents = this._registeredComponents;
@@ -37,7 +40,7 @@ define( function ( require ) {
       for( var entityId in registeredComponents[componentType] ) {
         component = registeredComponents[componentType][entityId];
         while( component.handleQueuedEvent() ) {}
-        updateEvent( component );
+        updateEvent.dispatch( component );
       }
     }
 
@@ -78,13 +81,15 @@ define( function ( require ) {
         for( var mi = 0, ml = modelEntities.length; mi < ml; ++mi ) {
           var model = modelEntities[ mi ].findComponent( "Model" );
           var transform = modelEntities[ mi ].findComponent( "Transform" );
+          math.matrix4.transpose(transform.worldMatrix(), convertedTransform);
+
 
           model._cubicvrMesh.instanceMaterials = [model._cubicvrMaterialDefinition];
 
           context.renderObject(
               model._cubicvrMesh,
               camera._cubicvrCamera,
-              transform.absolute(),
+              convertedTransform,
               cubicvrLights
           );
 

@@ -21,9 +21,9 @@ define( function( require ) {
       targeted: (options.targeted === undefined) ? false : options.targeted
     });
     this._cubicvrCamera.parent = {
-      tMatrix: math.matrix4.identity
+      tMatrix: new math.T()
     };
-    
+
     this.target = [0, 0, 0];
     this._targetHasChanged = false;
 
@@ -33,7 +33,7 @@ define( function( require ) {
   Camera.prototype.constructor = Camera;
 
   function onUpdate( event ) {
-    this._cubicvrCamera.parent.tMatrix = this.owner.findComponent("Transform").absolute();
+    math.matrix4.transpose(this.owner.findComponent( "Transform" ).worldMatrix(), this._cubicvrCamera.parent.tMatrix);
     if( this._targetHasChanged ) {
       this._cubicvrCamera.lookat( this.target );
       this._targetHasChanged = false;
@@ -59,7 +59,7 @@ define( function( require ) {
     }
 
     if( this.owner ) {
-      this._cubicvrCamera.parent.tMatrix = this.owner.findComponent("Transform").absolute();
+      math.matrix4.transpose(this.owner.findComponent( "Transform" ).worldMatrix(), this._cubicvrCamera.parent.tMatrix);
     }
 
     if( this.owner === null && data.previous !== null ) {
